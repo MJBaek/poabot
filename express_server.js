@@ -67,7 +67,7 @@ const serverStart = ((DB,logger,bot) =>{
 				}
 				logger.debug(info)
 				
-				gaiacli.verify(info).then(res =>{
+				gaiacli.verify(info).then((res) =>{
 					logger.debug(res)
 				})
 			}else{
