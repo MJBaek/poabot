@@ -22,6 +22,8 @@ module.exports = function (logger) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {
 					if (error) {
+						logger.error(`=============verify error===========`)
+						logger.error(error)
 						//gaia error
 						jsonRes.code = 500
 						jsonRes.msg = error
