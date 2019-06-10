@@ -12,7 +12,7 @@ module.exports = function (logger) {
 	
 	
 	module.verify = ((info) => {
-		let cmd = `${gaiacliDir} gaiacli poo verify ${info.sig} ${info.msg} ${info.pubKey} ${info.address}`
+		let cmd = `${gaiacliDir} poo verify ${info.sig} ${info.msg} ${info.pubKey} ${info.address}`
 		logger.debug(info.sig)
 		logger.debug(info.msg)
 		logger.debug(info.pubKey)
@@ -20,10 +20,8 @@ module.exports = function (logger) {
 		return new Promise(function (resolve, reject) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {
-					logger.debug(error)
-					logger.debug(stdout)
-					logger.debug(stderr)
 					if (error) {
+						logger.debug(error)
 						//gaia error
 						jsonRes.code = 500
 						jsonRes.msg = error
