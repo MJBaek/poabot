@@ -52,12 +52,14 @@ const serverStart = ((DB,logger,bot) =>{
 			let lmiVersion = jsonBody.lmi_version
 			let userTelegramId = jsonBody.t_user_id
 			
-			logger.debug(`==========================================================\n`)
-			logger.debug(`1. ${jsonBody}`)
+			logger.debug(`==========================================================`)
+			logger.debug(`1. jsonBody`)
+			logger.debug(jsonBody)
 			
 			let row = DB().queryFirstRow('SELECT msg FROM secret WHERE user_id=?', userTelegramId)
 			
-			logger.debug(`2. ${row}`)
+			logger.debug(`2. secret row`)
+			logger.debug(row)
 			
 			if(typeof row !== 'undefined'){
 				let info = {
@@ -66,10 +68,12 @@ const serverStart = ((DB,logger,bot) =>{
 						"sig" 			: jsonBody.encode_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
-				logger.debug(`3. ${info}`)
+				logger.debug(`3. info`)
+				logger.debug(info)
 				
 				gaiacli.verify(info).then((res) =>{
 					logger.debug(`4. ${res}`)
+					logger.debug(res)
 				})
 			}else{
 				res.writeHead(404, {'Content-Type' : 'application/json'})
