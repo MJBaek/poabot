@@ -20,6 +20,9 @@ module.exports = function (logger) {
 		return new Promise(function (resolve, reject) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {
+					logger.debug(error)
+					logger.debug(stdout)
+					logger.debug(stderr)
 					if (error) {
 						//gaia error
 						jsonRes.code = 500
