@@ -64,7 +64,7 @@ const serverStart = ((DB,logger,bot) =>{
 			if(typeof row !== 'undefined'){
 				let info = {
 						"msg"			: row.msg,
-						"address" 		: jsonBody.address,
+						"address" 		: jsonBody.encoded_address,
 						"sig" 			: jsonBody.encode_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
