@@ -113,11 +113,17 @@ bot.on('message', (ctx) => {
 					  	}
 				}
     			try{
-    				DB().insert('secret',{user_id : ctx.chat.id, msg : msg})
+    				let row = args.DB().queryFirstRow('SELECT count(1) as cnt FROM secret WHERE user_id=?', ctx.chat.id)
+    				if(row.cnt >0){
+    					DB().update('secret', {msg : msg}, {user_id : ctx.chat.id})
+    				}else{
+    					DB().insert('secret',{user_id : ctx.chat.id, msg : msg})
+    				}
     				let enc = cipher.encrypt(JSON.stringify(json))
     				ctx.reply(`lmi::2::${enc}`)
     			}catch(err){
     				ctx.reply(`Sorry! We got error.`)
+    				logger.error(err)
     			}
     			break
     		//unknown	
