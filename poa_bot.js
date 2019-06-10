@@ -113,11 +113,11 @@ bot.on('message', (ctx) => {
 					  	}
 				}
     			try{
-    				let row = DB().queryFirstRow('SELECT count(1) as cnt FROM secret WHERE user_id=?', ctx.chat.id)
+    				let row = DB().queryFirstRow('SELECT count(1) as cnt FROM secret WHERE user_id=?', ctx.state.telegramId)
     				if(row.cnt >0){
-    					DB().update('secret', {msg : msg}, {user_id : ctx.chat.id})
+    					DB().update('secret', {msg : msg}, {user_id : ctx.state.telegramId})
     				}else{
-    					DB().insert('secret',{user_id : ctx.chat.id, msg : msg})
+    					DB().insert('secret',{user_id : ctx.state.telegramId, msg : msg})
     				}
     				let enc = cipher.encrypt(JSON.stringify(json))
     				ctx.reply(`lmi::2::${enc}`)
