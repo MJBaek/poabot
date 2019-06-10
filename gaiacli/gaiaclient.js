@@ -31,7 +31,7 @@ module.exports = function (logger) {
 						resolve(jsonRes)
 					}else{
 						logger.debug(stdout)
-						if(stdout === 'Verified'){
+						if(stdout === 'Verified\n'){
 							jsonRes.code = 200
 							jsonRes.msg = 'success'
 							jsonRes.type = 'text'

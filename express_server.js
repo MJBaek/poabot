@@ -73,7 +73,11 @@ const serverStart = ((DB,logger,bot) =>{
 				
 				gaiacli.verify(info).then((res) =>{
 					logger.debug(`4. ${res}`)
+					let json = JSON.parse(res)
 					logger.debug(res.code)
+					res.writeHead(res.code, {'Content-Type' : 'application/json'})
+					res.write(`undefinded!`)
+					res.end()
 				})
 			}else{
 				res.writeHead(404, {'Content-Type' : 'application/json'})
