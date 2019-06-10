@@ -11,7 +11,7 @@ module.exports = function (logger) {
 	let gaiacliDir = `${__dirname}/gaiacli_${osPlatform}_${osArch}`;
 	
 	
-	module.verification = ((info) => {
+	module.verify = ((info) => {
 		let cmd = `${gaiacliDir} gaiacli poo verify ${info.sig} ${info.msg} ${info.pubKey} ${info.addr}`
 		return new Promise(function (resolve, reject) {
 			try{
