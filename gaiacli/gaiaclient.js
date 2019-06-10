@@ -22,7 +22,6 @@ module.exports = function (logger) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {
 					if (error) {
-						logger.debug(error)
 						//gaia error
 						jsonRes.code = 500
 						jsonRes.msg = error
