@@ -54,7 +54,7 @@ const test = ()=>{
 //	console.log(decrypt("MX+MCwHCi98HZm/4Zxk03dhX18/opY3CdL2/llztzDZJkMxwm3vXbBArnrxpmxS3l8UT3r4Ya4EDBu9wuL1owE2CkybJxuhLJn9hf13M1/VayKJLH0GLaekQmGtm1wLEh1PYd4Ne3OZp+/fWAQITjoOfffiFlwlY4htSl5h2zQHQ6QulURGnwf4iR2TWJKnXAM46v1EL9qOOkIU5TfBdNHLPqyDdgvdawDKcZjbx2M0fYbftAdtn1QWpCjO+rqqkDEUQrwWZZYqEz5ziPU5GwIJUTVQ49bbiK6HN1oqWZBG1BKKMbfw+ZOcyBKUjUXQi2nbys7JK4GpyD+5Z5G7cb0dwQgYyqP6BKGdTfV4etvmGrJf2ZVhaq2wzZHxd8opG0VDOlYY1RCl++tCOIUBZSGl9uTPMbryIat1ztl3k/Uc="))
 	
 }
-test()
+//test()
 
 module.exports = {
 		encrypt : encrypt,
