@@ -51,7 +51,6 @@ const serverStart = ((DB,logger,bot) =>{
 			let jsonBody = req.body
 			let lmiVersion = jsonBody.lmi_version
 			let userTelegramId = jsonBody.t_user_id
-			let resultJson = {"msg":"Undefined"}
 			
 			logger.debug(`==========================================================`)
 			logger.debug(`1. jsonBody`)
@@ -77,10 +76,9 @@ const serverStart = ((DB,logger,bot) =>{
 					let gaiacliJson = JSON.parse(res)
 					logger.debug(`5. gaiacliJsonAfter`)
 					logger.debug(gaiacliJson)
-					resultJson.msg = gaiacliJson.msg
-					logger.debug(resultJson)
 					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
-					res.write(JSON.stringify(resultJson))
+//					res.write(JSON.stringify(resultJson))
+					res.write(`{ "responseMsg" : ${gaiacliJson.msg} }`)
 					res.end()
 				})
 			}else{
