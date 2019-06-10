@@ -81,6 +81,7 @@ const serverStart = ((DB,logger,bot) =>{
 					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
 					res.write(resultJson)
 					res.end()
+					logger.debug(resultJson)
 				})
 			}else{
 				res.writeHead(404, {'Content-Type' : 'application/json'})
