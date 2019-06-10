@@ -95,12 +95,13 @@ bot.on('message', (ctx) => {
     		//계좌 등록	
     		case 'regist' :
     			const cipher = require('./cipher')
+    			let msg = cipher.randomStr(20)
     			let json = {
 						"action" : "sign",
 						"requester_t_id" : botId, // int poaBotTelegramId
 						"tx" : {
 							"denom": "stasia",
-							"memo" : cipher.randomStr(10) //사인 해야할 텍스트
+							"memo" : msg //사인 해야할 텍스트
 						 
 						 },
 						 "callback": {
@@ -111,9 +112,13 @@ bot.on('message', (ctx) => {
 							}
 					  	}
 				}
-	
-    			let enc = cipher.encrypt(JSON.stringify(json))
-    			ctx.reply(`lmi::2::${enc}`)
+    			try{
+    				DB().insert('secret',{user_id : ctx.chat.id, msg : msg})
+    				let enc = cipher.encrypt(JSON.stringify(json))
+    				ctx.reply(`lmi::2::${enc}`)
+    			}catch(err){
+    				ctx.reply(`Sorry! We got error.`)
+    			}
     			break
     		//unknown	
     		default :
