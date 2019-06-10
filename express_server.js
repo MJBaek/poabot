@@ -75,7 +75,8 @@ const serverStart = ((DB,logger,bot) =>{
 				gaiacli.verify(info).then((res) =>{
 					logger.debug(`4. gaiacliJsonBefore : ${res}`)
 					let gaiacliJson = JSON.parse(res)
-					logger.debug(`5. gaiacliJsonAfter : ${gaiacliJson}`)
+					logger.debug(`5. gaiacliJsonAfter`)
+					logger.debug(gaiacliJson)
 					resultJson.msg = gaiacliJson.msg
 					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
 					res.write(resultJson)
