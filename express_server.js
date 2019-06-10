@@ -52,12 +52,12 @@ const serverStart = ((DB,logger,bot) =>{
 			let lmiVersion = jsonBody.lmi_version
 			let userTelegramId = jsonBody.t_user_id
 			
-			let row = args.DB().queryFirstRow('SELECT msg FROM secre WHERE user_id=?', userTelegramId)
-			let msg = row.msg
+			let row = DB().queryFirstRow('SELECT msg FROM secre WHERE user_id=?', userTelegramId)
 			
-			if(typeof msg !== 'undefined'){
+			
+			if(typeof row !== 'undefined'){
 				let info = {
-						"msg"			: msg,
+						"msg"			: row.msg,
 						"address" 		: jsonBody.address,
 						"sig" 			: jsonBody.encoded_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
