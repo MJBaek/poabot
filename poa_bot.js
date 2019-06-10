@@ -113,7 +113,7 @@ bot.on('message', (ctx) => {
 					  	}
 				}
     			try{
-    				let row = args.DB().queryFirstRow('SELECT count(1) as cnt FROM secret WHERE user_id=?', ctx.chat.id)
+    				let row = DB().queryFirstRow('SELECT count(1) as cnt FROM secret WHERE user_id=?', ctx.chat.id)
     				if(row.cnt >0){
     					DB().update('secret', {msg : msg}, {user_id : ctx.chat.id})
     				}else{
