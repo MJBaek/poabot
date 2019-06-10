@@ -1,0 +1,4 @@
+/.env
+/node_modules/
+/poa_bot.log
+/poa_bot_console.log

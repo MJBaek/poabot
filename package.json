@@ -1,0 +1,31 @@
+{
+  "name": "poa_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "poa_bot.js",
+  "scripts": {
+    "restart": "kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'` ; node poa_bot.js >> ./poa_bot_console.log 2>&1 &",
+    "start": "node poa_bot.js >> ./poa_bot_console.log 2>&1 &",
+    "stop": "kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'`"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.2",
+    "better-sqlite3-helper": "^2.0.2",
+    "cheerio": "^1.0.0-rc.2",
+    "co": "^4.6.0",
+    "cron": "^1.7.0",
+    "dotenv": "^7.0.0",
+    "fetch-sync": "^2.0.0",
+    "log4js": "^4.0.2",
+    "path": "^0.12.7",
+    "sqlite3": "^4.0.6",
+    "sync-request": "^6.1.0",
+    "tdl": "^5.2.0",
+    "telegraf": "^3.27.1",
+    "telegraf-command-parts": "^1.0.3",
+    "telegraf-inline-menu": "^3.5.0",
+    "thunkify": "^2.1.2"
+  }
+}

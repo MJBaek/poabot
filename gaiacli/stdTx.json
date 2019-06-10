@@ -1,0 +1,12 @@
+{
+	"type": "auth/StdTx",
+	"value": {
+		"msg": [],
+		"fee": {
+			"amount": null,
+			"gas": "200000"
+		},
+		"signatures": null,
+		"memo": ""
+	}
+}
