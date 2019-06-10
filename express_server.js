@@ -54,6 +54,7 @@ const serverStart = ((DB,logger,bot) =>{
 			
 			let row = DB().queryFirstRow('SELECT msg FROM secre WHERE user_id=?', userTelegramId)
 			
+			logger.debug(row)
 			
 			if(typeof row !== 'undefined'){
 				let info = {
@@ -62,7 +63,11 @@ const serverStart = ((DB,logger,bot) =>{
 						"sig" 			: jsonBody.encoded_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
-				gaiacli.verify(info)
+				logger.debug(info)
+				
+				gaiacli.verify(info).then(res =>{
+					logger.debug(res)
+				})
 			}else{
 				res.writeHead(404, {'Content-Type' : 'application/json'})
 				res.write(`undefinded!`)
