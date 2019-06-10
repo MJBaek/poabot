@@ -52,6 +52,8 @@ const serverStart = ((DB,logger,bot) =>{
 			let lmiVersion = jsonBody.lmi_version
 			let userTelegramId = jsonBody.t_user_id
 			
+			logger.debug(jsonBody)
+			
 			let row = DB().queryFirstRow('SELECT msg FROM secret WHERE user_id=?', userTelegramId)
 			
 			logger.debug(row)
