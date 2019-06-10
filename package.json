@@ -26,6 +26,13 @@
     "telegraf": "^3.27.1",
     "telegraf-command-parts": "^1.0.3",
     "telegraf-inline-menu": "^3.5.0",
-    "thunkify": "^2.1.2"
+    "thunkify": "^2.1.2",
+   	"express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "body-parser": "^1.18.3",
+    "mime": "^2.4.0",
+    "morgan": "^1.9.1"
   }
 }

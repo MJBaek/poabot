@@ -1,6 +1,5 @@
 const http = require('http'), https = require('https'), express = require('express'), fs = require('fs'), bodyParser = require('body-parser'), morgan = require('morgan'), mime = require('mime')
 const cipher = require('./cipher')
-require('dotenv').config()
 
 const options = {
 	key : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_lcd_server.key`),
