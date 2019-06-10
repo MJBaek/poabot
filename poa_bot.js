@@ -3,7 +3,8 @@ const Telegraf = require('telegraf')
 const session = require('telegraf/session')
 const {log4js} = require('./setting/log4js')
 const DB = require('./setting/sqlite3-helper').DB
-const cronJob = require('./cron')
+const expressServer = require('./express_server')
+//const cronJob = require('./cron')
 
 const logger = log4js
 
@@ -14,7 +15,7 @@ const botName = '@poa_pro_bot'
 const bot = new Telegraf(botToken, {username : botName})
 bot.use(session())
 bot.startPolling()
-
+expressServer.serverStart(DB,logger,bot)
 
 bot.on('message', (ctx) => {
 	//새로운 사람이 입장
@@ -103,7 +104,7 @@ bot.on('message', (ctx) => {
 						 
 						 },
 						 "callback": {
-						 	"url": "http://35.230.72.133:9104",
+						 	"url": "https://cosmos.codes/",
 					  		"endpoint": "sign",
 					  		"custom_fields": {
 								"custom_field1": "It’s custom field1",

@@ -37,7 +37,7 @@ const test = ()=>{
 			 
 			 },
 			 "callback": {
-			 	"url": "http://35.230.72.133:9104",
+			 	"url": "http://35.190.225.104:9999",
 		  		"endpoint": "sign",
 		  		"custom_fields": {
 					"custom_field1": "It’s custom field1",
