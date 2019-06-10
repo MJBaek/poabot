@@ -57,9 +57,9 @@ const serverStart = ((DB,logger,bot) =>{
 			
 			if(typeof msg !== 'undefined'){
 				let info = {
-						"msg"			: msg
-						"address" 		: jsonBody.address
-						"sig" 			: jsonBody.encoded_signature
+						"msg"			: msg,
+						"address" 		: jsonBody.address,
+						"sig" 			: jsonBody.encoded_signature,
 						"pub" 			: jsonBody.encoded_pub_key		
 				}
 				gaiacli.verify(info)
