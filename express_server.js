@@ -73,10 +73,11 @@ const serverStart = ((DB,logger,bot) =>{
 				logger.debug(info)
 				
 				gaiacli.verify(info).then((res) =>{
-					logger.debug(`4. ${res}`)
-					let json = JSON.parse(res)
-					resultJson.msg = json.msg
-					res.writeHead(json.code, {'Content-Type' : 'application/json'})
+					logger.debug(`4. gaiacliJsonBefore : ${res}`)
+					let gaiacliJson = JSON.parse(res)
+					logger.debug(`5. gaiacliJsonAfter : ${gaiacliJson}`)
+					resultJson.msg = gaiacliJson.msg
+					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
 					res.write(resultJson)
 					res.end()
 				})
