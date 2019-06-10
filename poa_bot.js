@@ -51,7 +51,7 @@ bot.on('message', (ctx) => {
 	
 	
 	//@adv_pro_bot 호출 시 동일한 명령어로 인식 하도록
-	ctx.update.message.text = typeof ctx.update.message.text !== 'undefined' ? ctx.update.message.text.replace(`${process.env.BOT_ID}`,"") : ""
+	ctx.update.message.text = typeof ctx.update.message.text !== 'undefined' ? ctx.update.message.text.replace(botName,"") : ""
 	
 //	if(typeof ctx.update.message.text !== 'undefined'){
 //		logger.debug(`====================================user input text -> ${ctx.update.message.text}====================================`)
