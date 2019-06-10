@@ -42,7 +42,7 @@ module.exports = function (logger) {
 							jsonRes.msg = 'fail'
 							jsonRes.type = 'text'
 							jsonRes.data = stdout
-							jsonRes= 							
+							jsonRes= JSON.stringify(jsonRes)
 						}
 						resolve(jsonRes)
 					}
