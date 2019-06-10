@@ -13,6 +13,7 @@ module.exports = function (logger) {
 	
 	module.verify = ((info) => {
 		let cmd = `${gaiacliDir} gaiacli poo verify ${info.sig} ${info.msg} ${info.pubKey} ${info.addr}`
+		logger.debug(cmd)
 		return new Promise(function (resolve, reject) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {
