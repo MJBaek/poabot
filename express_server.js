@@ -51,6 +51,7 @@ const serverStart = ((DB,logger,bot) =>{
 			let jsonBody = req.body
 			let lmiVersion = jsonBody.lmi_version
 			let userTelegramId = jsonBody.t_user_id
+			let resultJson = {"msg":"Undefined"}
 			
 			logger.debug(`==========================================================`)
 			logger.debug(`1. jsonBody`)
@@ -74,13 +75,14 @@ const serverStart = ((DB,logger,bot) =>{
 				gaiacli.verify(info).then((res) =>{
 					logger.debug(`4. ${res}`)
 					let json = JSON.parse(res)
+					resultJson.msg = json.msg
 					res.writeHead(json.code, {'Content-Type' : 'application/json'})
-					res.write(json.msg)
+					res.write(resultJson)
 					res.end()
 				})
 			}else{
 				res.writeHead(404, {'Content-Type' : 'application/json'})
-				res.write(`undefinded!`)
+				res.write(resultJson)
 				res.end()
 			}
 		}catch(err){
