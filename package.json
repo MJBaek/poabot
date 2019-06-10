@@ -4,9 +4,9 @@
   "description": "",
   "main": "poa_bot.js",
   "scripts": {
-    "restart": "kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'` ; node poa_bot.js >> ./poa_bot_console.log 2>&1 &",
-    "start": "node poa_bot.js >> ./poa_bot_console.log 2>&1 &",
-    "stop": "kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'`"
+    "restart": "sudo kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'` ; sudonode poa_bot.js >> ./poa_bot_console.log 2>&1 &",
+    "start": "sudo node poa_bot.js >> ./poa_bot_console.log 2>&1 &",
+    "stop": "sudo kill -9 `ps -ef | grep 'node poa_bot.js' | grep -v grep | awk '{print $2}'`"
   },
   "author": "",
   "license": "ISC",
