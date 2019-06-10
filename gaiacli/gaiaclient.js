@@ -12,7 +12,7 @@ module.exports = function (logger) {
 	
 	
 	module.verification = ((info) => {
-		let cmd = `${gaiacliDir} gaiacli poo verify ${info.sig} [msg] ${pubKey} ${addr}`
+		let cmd = `${gaiacliDir} gaiacli poo verify ${info.sig} ${info.msg} ${info.pubKey} ${info.addr}`
 		return new Promise(function (resolve, reject) {
 			try{
 				exec(cmd, (error, stdout, stderr) => {

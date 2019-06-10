@@ -60,7 +60,7 @@ const serverStart = ((DB,logger,bot) =>{
 						"msg"			: msg,
 						"address" 		: jsonBody.address,
 						"sig" 			: jsonBody.encoded_signature,
-						"pub" 			: jsonBody.encoded_pub_key		
+						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
 				gaiacli.verify(info)
 			}else{
