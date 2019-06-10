@@ -31,14 +31,19 @@ module.exports = function (logger) {
 						resolve(jsonRes)
 					}else{
 						logger.debug(stdout)
-						if(stdout === 'verified'){
-							
+						if(stdout === 'Verified'){
+							jsonRes.code = 200
+							jsonRes.msg = 'success'
+							jsonRes.type = 'text'
+							jsonRes.data = stdout
+							jsonRes= JSON.stringify(jsonRes)
+						}else{
+							jsonRes.code = 501
+							jsonRes.msg = 'fail'
+							jsonRes.type = 'text'
+							jsonRes.data = stdout
+							jsonRes= 							
 						}
-						jsonRes.code = 200
-						jsonRes.msg = 'success'
-						jsonRes.type = 'text'
-						jsonRes.data = 'Y'
-						jsonRes= JSON.stringify(jsonRes)
 						resolve(jsonRes)
 					}
 				})	
