@@ -72,13 +72,34 @@ const serverStart = ((DB,logger,bot) =>{
 				logger.debug(info)
 				
 				gaiacli.verify(info).then((res) =>{
-					logger.debug(`4. gaiacliJsonBefore : ${res}`)
+					logger.debug(`4. gaiacli verify result : ${res}`)
 					let gaiacliJson = JSON.parse(res)
-					logger.debug(`5. gaiacliJsonAfter`)
-					logger.debug(gaiacliJson)
+					
+					
+					//검증 성공
+					if(gaiacliJson.code === 200){
+						//해당 계좌의 수량을 가져온다.
+						gaiacli.accountCheck(addr).then((res)=>{
+							let json = JSON.parse(res)
+							let coinAmount = parseInt(json.amount)
+							let coinDenom = json.denom
+							
+							gaiacli.stakingCheck(addr).then((res2)=>{
+								let json2 = JSON.parse(res2)
+								coinAmount += json2.amount
+								
+								//db에 해당 유저의 정보를 업데이트 또는 인서트
+								let row = DB().queryFirstRow('SELECT count(1) as cnt FROM user WHERE id=?', userTelegramId)
+								if(row.cnt >0){
+									DB().update('user', {address : jsonBody.address , denom : "uatom" , amount : coinAmount}, {id : userTelegramId})
+								}else{
+									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "uatom" , amount : coinAmount})
+								}
+							})
+						})
+					}
 					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
-//					res.write(JSON.stringify(resultJson))
-					res.write(`{ "responseMsg" : ${gaiacliJson.msg} }`)
+					res.write(`{ "responseMsg" : "${gaiacliJson.msg}" }`)
 					res.end()
 				})
 			}else{
