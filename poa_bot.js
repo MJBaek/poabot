@@ -121,7 +121,7 @@ bot.on('message', (ctx) => {
     					DB().insert('secret',{user_id : ctx.state.telegramId, msg : msg})
     				}
     				
-    				bot.telegram.sendMessage(ctx.state.telegramId, 'wait..').then((m) => {
+    				bot.telegram.sendMessage(ctx.chat.id, 'wait..').then((m) => {
 						json.callback.custom_fields.edit_chat_message_id = m.message_id
 						let enc = cipher.encrypt(JSON.stringify(json))
 						ctx.reply(`lmi::2::${enc}`)
