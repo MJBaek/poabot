@@ -169,7 +169,9 @@ bot.on('message', (ctx) => {
         				ctx.session.limitAmount = ctx.update.message.text
         				if(parseInt(ctx.session.limitAmount)<1){
         					ctx.session.command = 'room_regist2'
-    						ctx.reply(`Please enter the minimum number > 1`)	
+    						ctx.reply(`Please enter the minimum number > 1`).then(()=>{
+    							ctx.reply(`Please enter the minimum number of ${ctx.session.denom} coin entries`)
+    						})
         				}else{
         					try{
         						DB().prepare(`INSERT INTO room (id,limit_denom,limit_amount) values('${ctx.chat.id}','${ctx.session.limitDenom}','${ctx.session.limitAmount}')`).run()
