@@ -62,21 +62,27 @@ module.exports = function (logger) {
 						let json = JSON.parse(stdout)
 						let amount = 0
 						logger.debug(`stakingCheck : ${json}`)
-						
-						if(json != null){
-							for(let i=0; i<json.length; i++){
-								amount += parseFloat(json[i].shares)
+						try{
+							if(json != null){
+								for(let i=0; i<json.length; i++){
+									amount += parseFloat(json[i].shares)
+								}
+								jsonRes.amount = bigInt(Math.floor(amount))
+							}else{
+								jsonRes.amount = 0
 							}
-							jsonRes.amount = bigInt(Math.floor(amount))
-						}else{
-							jsonRes.amount = 0
+							
+							jsonRes.code = 200
+							jsonRes.msg = 'success'
+								jsonRes.denom = 'uatom'
+									jsonRes = JSON.stringify(jsonRes)
+									resolve(jsonRes)
+						}catch(err){
+							jsonRes.code = 500
+							jsonRes.msg = error
+							jsonRes= JSON.stringify(jsonRes)
+							resolve(jsonRes)
 						}
-						
-						jsonRes.code = 200
-						jsonRes.msg = 'success'
-						jsonRes.denom = 'uatom'
-						jsonRes = JSON.stringify(jsonRes)
-						resolve(jsonRes)
 					}
 				})	
 			}catch(err){
