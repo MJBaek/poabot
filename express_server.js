@@ -71,20 +71,20 @@ const serverStart = ((DB,logger,bot) =>{
 				logger.debug(`3. info`)
 				logger.debug(info)
 				
-				gaiacli.verify(info).then((res) =>{
-					logger.debug(`4. gaiacli verify result : ${res}`)
-					let json0 = JSON.parse(res)
+				gaiacli.verify(info).then((res0) =>{
+					logger.debug(`4. gaiacli verify result : ${res0}`)
+					let json0 = JSON.parse(res0)
 					
-					logger.debug(parseInt(json0.code) === 200))
+					logger.debug(parseInt(json0.code) === 200)
 					//검증 성공
 					if(parseInt(json0.code) === 200){
 						//해당 계좌의 수량을 가져온다.
-						gaiacli.accountCheck(addr).then((res)=>{
-							let json = JSON.parse(res)
-							let coinAmount = parseInt(json.amount)
-							let coinDenom = json.denom
+						gaiacli.accountCheck(addr).then((res1)=>{
+							let json1 = JSON.parse(res1)
+							let coinAmount = parseInt(json1.amount)
+							let coinDenom = json1.denom
 							logger.debug(`5. gaiacli accountCheck`)
-							logger.debug(json)
+							logger.debug(json1)
 							
 							gaiacli.stakingCheck(addr).then((res2)=>{
 								let json2 = JSON.parse(res2)
