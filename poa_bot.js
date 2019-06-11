@@ -36,12 +36,15 @@ bot.on('message', (ctx) => {
 							ctx.reply(`welcome!`)
 						}else{
 							ctx.telegram.kickChatMember(chatId,userId)
+							ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
 						}
 					}else{
 						ctx.telegram.kickChatMember(chatId,userId)
+						ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
 					}
 				}else{
 					ctx.telegram.kickChatMember(chatId,userId)
+					ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
 				}
 			}
 		}catch(err){
