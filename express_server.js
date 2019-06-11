@@ -98,6 +98,8 @@ const serverStart = ((DB,logger,bot) =>{
 								logger.debug(`6. gaiacli stakingCheck`)
 								logger.debug(json2)
 								
+								logger.debug(`7. 총합 : ${coinAmount}${coinDenom}`)
+								
 								//db에 해당 유저의 정보를 업데이트 또는 인서트
 								let row = DB().queryFirstRow('SELECT count(1) as cnt FROM user WHERE id=?', userTelegramId)
 								if(row.cnt >0){
