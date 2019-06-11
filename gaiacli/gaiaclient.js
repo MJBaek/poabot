@@ -74,9 +74,9 @@ module.exports = function (logger) {
 							
 							jsonRes.code = 200
 							jsonRes.msg = 'success'
-								jsonRes.denom = 'uatom'
-									jsonRes = JSON.stringify(jsonRes)
-									resolve(jsonRes)
+							jsonRes.denom = 'atom'
+							jsonRes = JSON.stringify(jsonRes)
+							resolve(jsonRes)
 						}catch(err){
 							jsonRes.code = 500
 							jsonRes.msg = error

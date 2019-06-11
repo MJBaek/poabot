@@ -98,17 +98,24 @@ const serverStart = ((DB,logger,bot) =>{
 								logger.debug(`6. gaiacli stakingCheck`)
 								logger.debug(json2)
 								
+								//
+								if(coinDenom == 'uatom'){
+									logger.debug(`uatom ${coinAmount}`)
+									coinAmount = parseInt(coinAmount/1000000)
+									logger.debug(`atom ${coinAmount}`)
+								}
+								
 								logger.debug(`7. 총합 : ${coinAmount}${coinDenom}`)
 								
 								//db에 해당 유저의 정보를 업데이트 또는 인서트
 								let row = DB().queryFirstRow('SELECT count(1) as cnt FROM user WHERE id=?', userTelegramId)
 								if(row.cnt >0){
-									DB().update('user', {address : jsonBody.address , denom : "uatom" , amount : coinAmount}, {id : userTelegramId})
+									DB().update('user', {address : jsonBody.address , denom : "atom" , amount : coinAmount}, {id : userTelegramId})
 								}else{
-									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "uatom" , amount : coinAmount})
+									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "atom" , amount : coinAmount})
 								}
 								
-								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Regist success! Your account is ${coinAmount}uatom`)
+								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Regist success! Your account is ${coinAmount}atom`)
 								.catch(err =>{
 									logger.error(`[EER0001] /regist - callback : 검증은 성공했지만, 메세지 수정에 실패했습니다.\n${err}`)
 								})

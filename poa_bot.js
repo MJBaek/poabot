@@ -95,7 +95,7 @@ bot.on('message', (ctx) => {
     	    						ctx.reply(`Please input denom`)
     	    						ctx.session.command = 'room_regist2'
     	    					}else{
-    	    						ctx.reply(`Give bot admin privileges.`)
+    	    						ctx.reply(`Give bot admin privileges`)
     	    					}
     	    				})
     					}else{
@@ -142,7 +142,7 @@ bot.on('message', (ctx) => {
 						bot.telegram.editMessageText(ctx.chat.id, m.message_id, m.message_id, encMsg)
     				})
     			}catch(err){
-    				ctx.reply(`Sorry! We got error.`)
+    				ctx.reply(`Sorry! We got error! ${err}`)
     				logger.error(err)
     			}
     			break
@@ -159,7 +159,7 @@ bot.on('message', (ctx) => {
         		//채팅방 등록2 - 제한할 코인 종류 입력
         		case 'room_regist2':
         			ctx.session.limitDenom = ctx.update.message.text
-        			ctx.reply(`Please enter the minimum number of ${ctx.session.denom} coin entries.`)
+        			ctx.reply(`Please enter the minimum number of ${ctx.session.denom} coin entries`)
         			ctx.session.command = 'room_regist3'
         			break
         			
@@ -174,7 +174,7 @@ bot.on('message', (ctx) => {
         					if(err == 'SqliteError: UNIQUE constraint failed: room.id'){
         						ctx.reply(`Your room is already regist`)	
         					}else{
-        						ctx.reply(`Sorry! ${err}`)	
+        						ctx.reply(`Sorry! We got error! ${err}`)	
         					}
         				}finally{
         					ctx.session.command = undefined
