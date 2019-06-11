@@ -167,19 +167,24 @@ bot.on('message', (ctx) => {
         		case 'room_regist3':
         			if(typeof ctx.session.limitDenom !== 'undefined'){
         				ctx.session.limitAmount = ctx.update.message.text
-        				try{
-        					DB().prepare(`INSERT INTO room (id,limit_denom,limit_amount) values('${ctx.chat.id}','${ctx.session.limitDenom}','${ctx.session.limitAmount}')`).run()
-							ctx.reply(`Congratulation! This room regist success! Limited ${ctx.session.limitAmount} ${ctx.session.limitDenom}`)
-        				}catch(err){
-        					if(err == 'SqliteError: UNIQUE constraint failed: room.id'){
-        						ctx.reply(`Your room is already regist`)	
-        					}else{
-        						ctx.reply(`Sorry! We got error! ${err}`)	
+        				if(parseInt(ctx.session.limitAmount)<1){
+        					ctx.session.command = 'room_regist2'
+    						ctx.reply(`Please enter the minimum number > 1`)	
+        				}else{
+        					try{
+        						DB().prepare(`INSERT INTO room (id,limit_denom,limit_amount) values('${ctx.chat.id}','${ctx.session.limitDenom}','${ctx.session.limitAmount}')`).run()
+        						ctx.reply(`Congratulation! This room regist success! Limited ${ctx.session.limitAmount} ${ctx.session.limitDenom}`)
+        					}catch(err){
+        						if(err == 'SqliteError: UNIQUE constraint failed: room.id'){
+        							ctx.reply(`Your room is already regist`)	
+        						}else{
+        							ctx.reply(`Sorry! We got error! ${err}`)	
+        						}
+        					}finally{
+        						ctx.session.command = undefined
+        						ctx.session.limitDenom  = undefined
+        						ctx.session.limitAmount = undefined
         					}
-        				}finally{
-        					ctx.session.command = undefined
-        					ctx.session.limitDenom  = undefined
-        					ctx.session.limitAmount = undefined
         				}
         			}
         			break
