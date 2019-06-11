@@ -106,7 +106,7 @@ const serverStart = ((DB,logger,bot) =>{
 									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "uatom" , amount : coinAmount})
 								}
 								
-								bot.telegram.editMessageText(jsonBody.editChatId, jsonBody.editMessageId, jsonBody.editMessageId, `Regist success! Your account is ${coinAmount}uatom.`)
+								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Regist success! Your account is ${coinAmount}uatom`)
 								.catch(err =>{
 									logger.error(`[EER0001] /regist - callback : 검증은 성공했지만, 메세지 수정에 실패했습니다.\n${err}`)
 								})
