@@ -73,7 +73,7 @@ const serverStart = ((DB,logger,bot) =>{
 				
 				gaiacli.verify(info).then((res) =>{
 					logger.debug(`4. gaiacli verify result : ${res}`)
-					let gaiacliJson = JSON.parse(res)
+					let json0 = JSON.parse(res)
 					
 					
 					//검증 성공
@@ -84,9 +84,13 @@ const serverStart = ((DB,logger,bot) =>{
 							let coinAmount = parseInt(json.amount)
 							let coinDenom = json.denom
 							
+							logger.debug(json)
+							
 							gaiacli.stakingCheck(addr).then((res2)=>{
 								let json2 = JSON.parse(res2)
 								coinAmount += json2.amount
+								
+								logger.debug(json2)
 								
 								//db에 해당 유저의 정보를 업데이트 또는 인서트
 								let row = DB().queryFirstRow('SELECT count(1) as cnt FROM user WHERE id=?', userTelegramId)
@@ -98,7 +102,7 @@ const serverStart = ((DB,logger,bot) =>{
 							})
 						})
 					}
-					res.writeHead(gaiacliJson.code, {'Content-Type' : 'application/json'})
+					res.writeHead(json0.code, {'Content-Type' : 'application/json'})
 					res.write(`{ "responseMsg" : "${gaiacliJson.msg}" }`)
 					res.end()
 				})
