@@ -103,7 +103,7 @@ const serverStart = ((DB,logger,bot) =>{
 						})
 					}
 					res.writeHead(json0.code, {'Content-Type' : 'application/json'})
-					res.write(`{ "responseMsg" : "${gaiacliJson.msg}" }`)
+					res.write(`{ "responseMsg" : "${json0.msg}" }`)
 					res.end()
 				})
 			}else{
