@@ -71,7 +71,7 @@ const serverStart = ((DB,logger,bot) =>{
 				let info = {
 						"msg"			: row.msg,
 						"address" 		: jsonBody.encoded_address,
-						"sig" 			: jsonBody.encode_signature,
+						"sig" 			: jsonBody.encoded_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
 				logger.debug(`3. info`)
