@@ -67,7 +67,7 @@ module.exports = function (logger) {
 						}
 						jsonRes.code = 200
 						jsonRes.msg = 'success'
-						jsonRes.amount = bigInt(amount)
+						jsonRes.amount = parseFloat(amount)
 						jsonRes.denom = 'uatom'
 						jsonRes = JSON.stringify(jsonRes)
 						resolve(jsonRes)
