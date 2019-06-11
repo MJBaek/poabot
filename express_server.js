@@ -79,14 +79,14 @@ const serverStart = ((DB,logger,bot) =>{
 					//검증 성공
 					if(parseInt(json0.code) === 200){
 						//해당 계좌의 수량을 가져온다.
-						gaiacli.accountCheck(addr).then((res1)=>{
+						gaiacli.accountCheck(jsonBody.address).then((res1)=>{
 							let json1 = JSON.parse(res1)
 							let coinAmount = parseInt(json1.amount)
 							let coinDenom = json1.denom
 							logger.debug(`5. gaiacli accountCheck`)
 							logger.debug(json1)
 							
-							gaiacli.stakingCheck(addr).then((res2)=>{
+							gaiacli.stakingCheck(jsonBody.address).then((res2)=>{
 								let json2 = JSON.parse(res2)
 								coinAmount += json2.amount
 								logger.debug(`6. gaiacli stakingCheck`)
