@@ -75,9 +75,9 @@ const serverStart = ((DB,logger,bot) =>{
 					logger.debug(`4. gaiacli verify result : ${res}`)
 					let json0 = JSON.parse(res)
 					
-					
+					logger.debug(parseInt(json0.code) === 200))
 					//검증 성공
-					if(json0.code == 200){
+					if(parseInt(json0.code) === 200){
 						//해당 계좌의 수량을 가져온다.
 						gaiacli.accountCheck(addr).then((res)=>{
 							let json = JSON.parse(res)
