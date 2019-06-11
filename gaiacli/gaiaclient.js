@@ -3,6 +3,7 @@ module.exports = function (logger) {
 	const exec = require('child_process').exec
 	const request = require('request')
 	let fs = require('fs')
+	const bigInt = require('big-integer')
 	
 	
 	let module = {}	
@@ -66,7 +67,7 @@ module.exports = function (logger) {
 						}
 						jsonRes.code = 200
 						jsonRes.msg = 'success'
-						jsonRes.amount = parseInt(amount)
+						jsonRes.amount = bigInt(amount)
 						jsonRes.denom = 'uatom'
 						jsonRes = JSON.stringify(jsonRes)
 						resolve(jsonRes)

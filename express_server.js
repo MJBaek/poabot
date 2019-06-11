@@ -1,6 +1,6 @@
 const http = require('http'), https = require('https'), express = require('express'), fs = require('fs'), bodyParser = require('body-parser'), morgan = require('morgan'), mime = require('mime')
 const cipher = require('./cipher')
-
+const bigInt = require('big-integer')
 const options = {
 	key : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_lcd_server.key`),
 	cert : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_bundle.crt`)
@@ -65,7 +65,7 @@ const serverStart = ((DB,logger,bot) =>{
 				let info = {
 						"msg"			: row.msg,
 						"address" 		: jsonBody.encoded_address,
-						"sig" 			: jsonBody.encode_signature,
+						"sig" 			: jsonBody.encoded_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
 				logger.debug(`3. info`)
@@ -81,14 +81,14 @@ const serverStart = ((DB,logger,bot) =>{
 						//해당 계좌의 수량을 가져온다.
 						gaiacli.accountCheck(jsonBody.address).then((res1)=>{
 							let json1 = JSON.parse(res1)
-							let coinAmount = parseInt(json1.amount)
+							let coinAmount = bigInt(json1.amount)
 							let coinDenom = json1.denom
 							logger.debug(`5. gaiacli accountCheck`)
 							logger.debug(json1)
 							
 							gaiacli.stakingCheck(jsonBody.address).then((res2)=>{
 								let json2 = JSON.parse(res2)
-								coinAmount += json2.amount
+								coinAmount += bigInt(json2.amount)
 								logger.debug(`6. gaiacli stakingCheck`)
 								logger.debug(json2)
 								
