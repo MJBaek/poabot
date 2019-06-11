@@ -6,6 +6,7 @@ const options = {
 	cert : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_bundle.crt`)
 }	
 //<--bot
+const Telegraf = require('telegraf')
 const botId = 826811748
 const botToken = '826811748:AAE9j_9xyuRApCJovJuDOkj3f0o03Gz2wQo'
 const botName = '@poa_pro_bot'	
