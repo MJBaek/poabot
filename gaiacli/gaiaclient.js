@@ -63,7 +63,7 @@ module.exports = function (logger) {
 						let amount = 0
 						logger.debug(json)
 						
-						if(json !== 'null'){
+						if(json != 'null'){
 							for(let i=0; i<json.length; i++){
 								amount += parseFloat(json[i].shares)
 							}
