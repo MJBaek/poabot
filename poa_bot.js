@@ -38,14 +38,23 @@ bot.on('message', (ctx) => {
 							ctx.telegram.kickChatMember(chatId,userId)
 							//봇이 먼저 대화를 걸수가 없으므로 아래 메세지는 봇과 대화를 시작한적이 없는 경우 생략됨.
 							ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
+							.catch(err =>{
+								logger.error(err)
+							})
 						}
 					}else{
 						ctx.telegram.kickChatMember(chatId,userId)
 						ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
+						.catch(err =>{
+							logger.error(err)
+						})
 					}
 				}else{
 					ctx.telegram.kickChatMember(chatId,userId)
 					ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`)
+					.catch(err =>{
+						logger.error(err)
+					})
 				}
 			}
 		}catch(err){
