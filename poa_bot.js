@@ -108,7 +108,8 @@ bot.on('message', (ctx) => {
 						 	"url": "https://cosmos.codes/",
 					  		"endpoint": "sign",
 					  		"custom_fields": {
-								"custom_field1": "It’s custom field1",
+					  			"edit_chat_id" : ctx.chat.id,
+								"edit_chat_message_id": ""
 							}
 					  	}
 				}
@@ -119,8 +120,12 @@ bot.on('message', (ctx) => {
     				}else{
     					DB().insert('secret',{user_id : ctx.state.telegramId, msg : msg})
     				}
-    				let enc = cipher.encrypt(JSON.stringify(json))
-    				ctx.reply(`lmi::2::${enc}`)
+    				
+    				bot.telegram.sendMessage(ctx.state.telegramId, 'wait..').then((m) => {
+						json.callback.custom_fields.edit_chat_message_id = m.message_id
+						let enc = cipher.encrypt(JSON.stringify(json))
+						ctx.reply(`lmi::2::${enc}`)
+    				})
     			}catch(err){
     				ctx.reply(`Sorry! We got error.`)
     				logger.error(err)

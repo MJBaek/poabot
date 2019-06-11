@@ -5,7 +5,12 @@ const options = {
 	key : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_lcd_server.key`),
 	cert : fs.readFileSync(`${__dirname}/ssl/cosmos_codes_bundle.crt`)
 }	
-
+//<--bot
+const botId = 826811748
+const botToken = '826811748:AAE9j_9xyuRApCJovJuDOkj3f0o03Gz2wQo'
+const botName = '@poa_pro_bot'	
+const bot = new Telegraf(botToken, {username : botName})
+//-->
 
 const port1 = 8080
 const port2 = 443
@@ -65,7 +70,7 @@ const serverStart = ((DB,logger,bot) =>{
 				let info = {
 						"msg"			: row.msg,
 						"address" 		: jsonBody.encoded_address,
-						"sig" 			: jsonBody.encoded_signature,
+						"sig" 			: jsonBody.encode_signature,
 						"pubKey" 		: jsonBody.encoded_pub_key		
 				}
 				logger.debug(`3. info`)
@@ -99,6 +104,11 @@ const serverStart = ((DB,logger,bot) =>{
 								}else{
 									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "uatom" , amount : coinAmount})
 								}
+								
+								bot.telegram.editMessageText(jsonBody.editChatId, jsonBody.editMessageId, jsonBody.editMessageId, `Regist success! Your account is ${coinAmount}uatom.`)
+								.catch(err =>{
+									logger.error(`[EER0001] /regist - callback : 검증은 성공했지만, 메세지 수정에 실패했습니다.\n${err}`)
+								})
 							})
 						})
 					}
