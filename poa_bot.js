@@ -124,7 +124,9 @@ bot.on('message', (ctx) => {
     				bot.telegram.sendMessage(ctx.chat.id, 'wait..').then((m) => {
 						json.callback.custom_fields.edit_chat_message_id = m.message_id
 						let enc = cipher.encrypt(JSON.stringify(json))
-						ctx.reply(`lmi::2::${enc}`)
+						let encMsg = `lmi::2::${enc}`
+						logger.debug(encMsg)
+						bot.telegram.editMessageText(ctx.chat.id, m.message_id, m.message_id, encMsg)
     				})
     			}catch(err){
     				ctx.reply(`Sorry! We got error.`)
