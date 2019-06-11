@@ -62,12 +62,18 @@ module.exports = function (logger) {
 						let json = JSON.parse(stdout)
 						let amount = 0
 						logger.debug(json)
-						for(let i=0; i<json.length; i++){
-							amount += parseFloat(json[i].shares)
+						
+						if(json !== 'null'){
+							for(let i=0; i<json.length; i++){
+								amount += parseFloat(json[i].shares)
+							}
+							jsonRes.amount = bigInt(Math.floor(amount))
+						}else{
+							jsonRes.amount = 0
 						}
+						
 						jsonRes.code = 200
 						jsonRes.msg = 'success'
-						jsonRes.amount = bigInt(Math.floor(amount))
 						jsonRes.denom = 'uatom'
 						jsonRes = JSON.stringify(jsonRes)
 						resolve(jsonRes)
