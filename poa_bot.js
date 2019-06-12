@@ -163,6 +163,8 @@ bot.on('message', (ctx) => {
     				logger.error(`/proof 명령중 에러 발생\n${err}`)
     			}
     			break
+    		case "start" :
+    			break
     		//unknown	
     		default :
     			ctx.reply(`Unknown command`)
