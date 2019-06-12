@@ -84,13 +84,13 @@ bot.on('message', (ctx) => {
     if(ctx.update.message.text.startsWith('/')){ // only cmd
     	switch(ctx.state.cmd){
     		//내 계좌 정보
-    		case 'my_info':
+    		case 'myinfo':
     			let row = DB().queryFirstRow('SELECT * FROM user WHERE id=?', ctx.state.telegramId)
     			
     			if(typeof row === 'undefined'){
     				ctx.reply(`You did not prove your account. Please /regist.`)
     			}else{
-    				ctx.reply(`Address : ${row.address}\n You have ${row.amount}${row.denom}`)
+    				ctx.reply(`Address : ${row.address}\nYou have ${row.amount}${row.denom}`)
     			}
     			break
     			
@@ -117,7 +117,7 @@ bot.on('message', (ctx) => {
     			
     			break
     		//계좌 등록	
-    		case 'regist' :
+    		case 'proof' :
     			const cipher = require('./cipher')
     			let msg = cipher.randomStr(20)
     			let json = {
