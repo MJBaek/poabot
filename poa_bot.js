@@ -83,6 +83,16 @@ bot.on('message', (ctx) => {
     
     if(ctx.update.message.text.startsWith('/')){ // only cmd
     	switch(ctx.state.cmd){
+    		//내 계좌 정보
+    		case 'my_proof_info':
+    			let row = DB().queryFirstRow('SELECT * FROM user WHERE id=?', ctx.state.telegramId)
+    			
+    			if(typeof row === 'undefined'){
+    				ctx.reply(`You did not prove your account. Please /regist.`)
+    			}else{
+    				ctx.reply(`Address : ${row.address}\n ${row.amount}${row.denom}`)
+    			}
+    			
     		//채팅방 등록
     		case 'room_regist':
     			if(ctx.state.chatType === 'p'){
