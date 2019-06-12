@@ -115,9 +115,9 @@ const serverStart = ((DB,logger,bot) =>{
 									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "atom" , amount : coinAmount})
 								}
 								
-								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Regist success! Your account is ${coinAmount}atom`)
+								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Your asset has been verified. You have ${counAmount}atom in your account.`)
 								.catch(err =>{
-									logger.error(`[EER0001] /regist - callback : 검증은 성공했지만, 메세지 수정에 실패했습니다.\n${err}`)
+									logger.error(`express_server.js -/proof(callback) : 검증은 성공했지만, 메세지 수정에 실패\n${err}`)
 								})
 							})
 						})
@@ -132,7 +132,7 @@ const serverStart = ((DB,logger,bot) =>{
 				res.end()
 			}
 		}catch(err){
-			logger.error(err)
+			logger.error(`express_server.js -/proof(callback) 콜백 처리중 에러 발생\n${err}`)
 		}
 		
 	})

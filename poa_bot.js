@@ -33,35 +33,38 @@ bot.on('message', (ctx) => {
 				if(typeof userRow !== 'undefined'){
 					if(userRow.denom == roomRow.limit_denom){
 						if(userRow.amount >= roomRow.limit_amount){
-							ctx.reply(`welcome!`)
+							ctx.reply(`Welcome to the VIP room.`)
 						}else{
-							ctx.telegram.kickChatMember(chatId,userId).catch(err =>{
-								logger.error(err)
-							})
-							//봇이 먼저 대화를 걸수가 없으므로 아래 메세지는 봇과 대화를 시작한적이 없는 경우 생략됨.
-							ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`).catch(err =>{
-								logger.error(err)
+							ctx.telegram.kickChatMember(chatId,userId).then((userId)=>{
+								//봇이 먼저 대화를 걸수가 없으므로 아래 메세지는 봇과 대화를 시작한적이 없는 경우 생략됨.
+								ctx.telegram.sendMessage(userId,`This is a VIP room. You must prove your balance in order to enter the room. To verify your balance, send the /regist command to @poa_pro_bot`).catch(err =>{
+									logger.error(`강퇴 후 메세지 전달 실패!(수량이 적어서 강퇴) ${err}`)
+								})	
+							}).catch(err =>{
+								logger.error(`강퇴 실패! (수량이 적어서 강퇴하려고 하였으나 실패)${err}`)
 							})
 						}
 					}else{
-						ctx.telegram.kickChatMember(chatId,userId).catch(err =>{
-							logger.error(err)
-						})
-						ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`).catch(err =>{
-							logger.error(err)
+						ctx.telegram.kickChatMember(chatId,userId).then((userId)=>{
+							ctx.telegram.sendMessage(userId,`This is a VIP room. You must prove your balance in order to enter the room. To verify your balance, send the /regist command to @poa_pro_bot`).catch(err =>{
+								logger.error(`강퇴후 메세지 전달 실패!(인증된 코인 타입이 달라서 강퇴) ${err}`)
+							}).catch(err =>{
+								logger.error(`강퇴 실패! (인증된 코인 타입이 달라서 강퇴)${err}`)
+							})
 						})
 					}
 				}else{
-					ctx.telegram.kickChatMember(chatId,userId).catch(err =>{
-						logger.error(err)
-					})
-					ctx.telegram.sendMessage(userId,`Sorry. This is a vip room. You have to prove quantity over ${room.limit_amount}${room.limit_denom}. To verify your account, you can use the /regist command to @poa_pro_bot.`).catch(err =>{
-						logger.error(err)
+					ctx.telegram.kickChatMember(chatId,userId).then((userId)=>{
+						ctx.telegram.sendMessage(userId,`This is a VIP room. You must prove your balance in order to enter the room. To verify your balance, send the /regist command to @poa_pro_bot`).catch(err =>{
+							logger.error(`강퇴후 메세지 전달 실패!(인증내역이 없어서 강퇴) ${err}`)
+						}).catch(err =>{
+							logger.error(`강퇴 실패! (인증내역이 없어서 강퇴)${err}`)
+						})
 					})
 				}
 			}
 		}catch(err){
-			logger.debug(`kick error! ${err}`)
+			logger.debug(`봇이 멤버 강퇴시도중 에러 발생\n${err}`)
 		}
 	}
 	
@@ -91,29 +94,29 @@ bot.on('message', (ctx) => {
     			let row = DB().queryFirstRow('SELECT * FROM user WHERE id=?', ctx.state.telegramId)
     			
     			if(typeof row === 'undefined'){
-    				ctx.reply(`You did not prove your account. Please /regist.`)
+    				ctx.reply(`You did not prove your account. Send the /regist command to @poa_pro_bot`)
     			}else{
-    				ctx.reply(`Address : ${row.address}\nYou have ${row.amount}${row.denom}`)
+    				ctx.reply(`You have ${row.amount}${row.denom} in ${row.address}`)
     			}
     			break
     			
     		//채팅방 등록
     		case 'room_regist':
     			if(ctx.state.chatType === 'p'){
-    				ctx.reply(`To use the poa bot, you need to do the following:\n* Bot is available for GROUP , SUPER GROUPS.\n1. Invite @poa_pro_bot to the group chat.\n2. In the group chat, send the following command: /room_regist`)
+    				ctx.reply(`Your chat room must be a group or supergroup to use the PoA bot: 1. Invite @poa_pro_bot to the group chat 2. Input /room_regist in the group chat.`)
     			}else{
     				checkAdmin(ctx).then((res)=>{
     					if(res){
     						isAdminBot(ctx).then((res2)=>{
     	    					if(res2){
-    	    						ctx.reply(`Please input denom`)
+    	    						ctx.reply(`Please input the coin to use for the entry process`)
     	    						ctx.session.command = 'room_regist2'
     	    					}else{
-    	    						ctx.reply(`Give bot admin privileges`)
+    	    						ctx.reply(`Bot needs admin privilege to register your group chat`)
     	    					}
     	    				})
     					}else{
-    						ctx.reply(`You are not admin`)
+    						ctx.reply(`You do not have admin privileges`)
     					}
     				})
     			}
@@ -156,8 +159,8 @@ bot.on('message', (ctx) => {
 						bot.telegram.editMessageText(ctx.chat.id, m.message_id, m.message_id, encMsg)
     				})
     			}catch(err){
-    				ctx.reply(`Sorry! We got error! ${err}`)
-    				logger.error(err)
+    				ctx.reply(`Sorry, an error has occurred. ${err}`)
+    				logger.error(`/proof 명령중 에러 발생\n${err}`)
     			}
     			break
     		//unknown	
@@ -173,7 +176,7 @@ bot.on('message', (ctx) => {
         		//채팅방 등록2 - 제한할 코인 종류 입력
         		case 'room_regist2':
         			ctx.session.limitDenom = ctx.update.message.text
-        			ctx.reply(`Please enter the minimum number of ${ctx.session.denom} coin entries`)
+        			ctx.reply(`Please enter the minimum balance needed to join the group chat`)
         			ctx.session.command = 'room_regist3'
         			break
         			
@@ -183,18 +186,20 @@ bot.on('message', (ctx) => {
         				ctx.session.limitAmount = ctx.update.message.text
         				if(parseInt(ctx.session.limitAmount)<1){
         					ctx.session.command = 'room_regist2'
-    						ctx.reply(`Please enter the minimum number > 1`).then(()=>{
-    							ctx.reply(`Please enter the minimum number of ${ctx.session.denom} coin entries`)
+    						//1개 이상의 코인을 받기
+    						ctx.reply(`Minimum balance must be greater than 1`).then(()=>{
+    							ctx.reply(`Please enter the minimum balance needed to join the group chat`)
     						})
         				}else{
         					try{
         						DB().prepare(`INSERT INTO room (id,limit_denom,limit_amount) values('${ctx.chat.id}','${ctx.session.limitDenom}','${ctx.session.limitAmount}')`).run()
-        						ctx.reply(`Congratulation! This room regist success! Limited ${ctx.session.limitAmount} ${ctx.session.limitDenom}`)
+        						ctx.reply(`Congratulations! Your group chat has been registered. Minimum balance requirement is ${ctx.session.limitAmount} ${ctx.session.limitDenom}`)
         					}catch(err){
         						if(err == 'SqliteError: UNIQUE constraint failed: room.id'){
-        							ctx.reply(`Your room is already regist`)	
+        							ctx.reply(`Your group chat has already been registered`)	
         						}else{
-        							ctx.reply(`Sorry! We got error! ${err}`)	
+        							ctx.reply(`Sorry, an error has occurred`)	
+        							logger.error(`room_regist3 - 채팅방 등록 도중 에러 발생\n${err}`)	
         						}
         					}finally{
         						ctx.session.command = undefined
