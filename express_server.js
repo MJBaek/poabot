@@ -115,7 +115,7 @@ const serverStart = ((DB,logger,bot) =>{
 									DB().insert('user',{id : userTelegramId , address : jsonBody.address , denom : "atom" , amount : coinAmount})
 								}
 								
-								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Your asset has been verified. You have ${coinAmount}atom in your account.`)
+								bot.telegram.editMessageText(jsonBody.edit_chat_id, jsonBody.edit_chat_message_id, jsonBody.edit_chat_message_id, `Your asset has been verified.\nYou have ${coinAmount}atom in your account.`)
 								.catch(err =>{
 									logger.error(`express_server.js -/proof(callback) : 검증은 성공했지만, 메세지 수정에 실패\n${err}`)
 								})
