@@ -17,6 +17,19 @@ bot.use(session())
 bot.startPolling()
 expressServer.serverStart(DB,logger,bot)
 
+
+//채팅방이 일반그룹에서 슈퍼그룹으로 변경된 경우
+bot.on('migrate_from_chat_id', (ctx) => {
+	try{
+		
+		let row = DB().queryFirstRow('SELECT * FROM room WHERE id=?', ctx.update.message.migrate_from_chat_id)
+		DB().update('room', {id : ctx.chat.id}, {id : ctx.update.message.migrate_from_chat_id})
+		
+		logger.debug(`roomid ${ctx.update.message.migrate_from_chat_id} => ${ctx.chat.id}`)
+	}catch(err){
+		logger.error(`migrate_from_chat_id - 업데이트 에러 발생\n${err}`)
+	}
+})
 bot.on('message', (ctx) => {
 	//새로운 사람이 입장
 	if(typeof ctx.update.message.new_chat_members !== 'undefined'){
