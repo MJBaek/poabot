@@ -148,7 +148,7 @@ bot.on('message', (ctx) => {
 						 
 						 },
 						 "callback": {
-						 	"url": "https://lunamint.network",
+						 	"url": "https://cosmos.codes",
 					  		"endpoint": "sign",
 					  		"custom_fields": {
 					  			"edit_chat_id" : ctx.chat.id,
