@@ -32,7 +32,7 @@ const test = ()=>{
 			"requester_t_id" : "826811748", // int poaBotTelegramId
 			"tx" : {
 				"from": "cosmos1tl8q0facf2fl3leenh6pc0uvjyqdwcdhus7uyk", //인증할 계좌주소
-				"denom": "stasia",
+				"denom": "cosmos",
 				"memo" : "randomStr" //사인 해야할 텍스트
 			 
 			 },

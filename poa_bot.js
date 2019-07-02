@@ -143,12 +143,12 @@ bot.on('message', (ctx) => {
 						"action" : "sign",
 						"requester_t_id" : botId, // int poaBotTelegramId
 						"tx" : {
-							"denom": "stasia",
+							"denom": "cosmos",
 							"memo" : msg //사인 해야할 텍스트
 						 
 						 },
 						 "callback": {
-						 	"url": "https://cosmos.codes/",
+						 	"url": "https://lunamint.network",
 					  		"endpoint": "sign",
 					  		"custom_fields": {
 					  			"edit_chat_id" : ctx.chat.id,
