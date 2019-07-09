@@ -1,4 +1,4 @@
-const {log4js} = require('./setting/log4js')
+/*const {log4js} = require('./setting/log4js')
 const logger = log4js
 const gaiacli = require('./gaiacli/gaiaclient')(logger)
 
@@ -18,3 +18,22 @@ gaiacli.accountCheck(addr).then((res)=>{
 	})
 	
 })
+
+sudo tee /etc/systemd/system/kvd.service > /dev/null <<'EOF'
+[Unit]
+Description=Kava daemon
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/root/go/bin/kvd start
+StandardOutput=file:/var/log/kvd/kvd.log
+StandardError=file:/var/log/kvd/kvd_error.log
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+EOF
+*/
