@@ -1,10 +1,10 @@
 module.exports = function (logger) {
-//	const CronJob = require('cron').CronJob
-//	require('dotenv').config()
+	const CronJob = require('cron').CronJob
+	require('dotenv').config()
 //	const QRY = require ('./db/query')(args)
 //	const dateUtil = require('./setting/date_util')()
 //	
-//	let module = {}
+	let module = {}
 //	
 //	let checkBotParticipation = (()=>{
 //		//check bot participation
@@ -50,6 +50,18 @@ module.exports = function (logger) {
 	//Repeat every 10 second 
 	module.schedule10Sec = new CronJob('*/10 * * * * *', function() {
 		try{
+			/*
+			 let sql = `
+				SELECT *
+				FROM room
+				WHERE announce = 1 AND participation = 1
+			`
+			let rows = args.DB().query(sql)
+			let list = []
+			rows.forEach(row => {
+				list.push(row.id)
+			})
+			 */
 			console.log('10sec')
 		}catch(err){
 			logger.error(err)
