@@ -16,8 +16,8 @@ bot.startPolling()
 expressServer.serverStart(DB,logger,bot)
 
 //cron - 1초마다 반복
-const cronJob = require('./cron')(logger)
-cronJob.schedule1Sec().start()
+const cron = require('./cron')(logger)
+cron.schedule1Sec.start()
 
 //채팅방이 일반그룹에서 슈퍼그룹으로 변경된 경우
 bot.on('migrate_from_chat_id', (ctx) => {
