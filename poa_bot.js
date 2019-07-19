@@ -4,20 +4,19 @@ const session = require('telegraf/session')
 const {log4js} = require('./setting/log4js')
 const DB = require('./setting/sqlite3-helper').DB
 const expressServer = require('./express_server')
-const cronJob = require('./cron')
 require('dotenv').config()
 const logger = log4js
 
 const botId = process.env.BOT_ID
 const botToken = process.env.BOT_TOKEN
 const botName = process.env.BOT_NAME
-	console.log(botToken)
 const bot = new Telegraf(botToken, {username : botName})
 bot.use(session())
 bot.startPolling()
 expressServer.serverStart(DB,logger,bot)
 
-//1초마다 반복
+//cron - 1초마다 반복
+const cronJob = require('./cron')(logger)
 cronJob.schedule1Sec().start()
 
 //채팅방이 일반그룹에서 슈퍼그룹으로 변경된 경우
