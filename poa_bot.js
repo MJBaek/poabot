@@ -4,19 +4,21 @@ const session = require('telegraf/session')
 const {log4js} = require('./setting/log4js')
 const DB = require('./setting/sqlite3-helper').DB
 const expressServer = require('./express_server')
-//const cronJob = require('./cron')
+const cronJob = require('./cron')
 
 const logger = log4js
 
-const botId = 826811748
-const botToken = '826811748:AAE9j_9xyuRApCJovJuDOkj3f0o03Gz2wQo'
-const botName = '@poa_pro_bot'	
+const botId = process.env.BOT_ID
+const botToken = process.env.BOT_TOKEN
+const botName = process.env.BOT_NAME
 	
 const bot = new Telegraf(botToken, {username : botName})
 bot.use(session())
 bot.startPolling()
 expressServer.serverStart(DB,logger,bot)
 
+//1초마다 반복
+cronJob.schedule1Sec().start()
 
 //채팅방이 일반그룹에서 슈퍼그룹으로 변경된 경우
 bot.on('migrate_from_chat_id', (ctx) => {

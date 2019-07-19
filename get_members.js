@@ -6,8 +6,8 @@ const { Client } = require('tglib')
 
 let getMembers = async(chatId) => {
 	const client = new Client({
-	    apiId: '837226',
-	    apiHash: '3d5f0d9a256aef2d1a7867fde72bdb14',
+	    apiId: process.env.T_API_ID,
+	    apiHash: process.env.T_API_HASH,
 	})
 	// Save tglib default handler which prompt input at console
 	const defaultHandler = client.callbacks['td:getInput']
@@ -17,7 +17,7 @@ let getMembers = async(chatId) => {
 	    if (args.string === 'tglib.input.AuthorizationType') {
 	            return 'bot'
 	    } else if (args.string === 'tglib.input.AuthorizationValue') {
-	            return '826811748:AAE9j_9xyuRApCJovJuDOkj3f0o03Gz2wQo'
+	            return process.env.BOT_TOKEN
 	    }
 	    return await defaultHandler(args)
 	})
@@ -66,4 +66,4 @@ let checkMembersAmount = async(membersInfo)=>{
 	})
 // console.log(membersInfo)
 }
-getMembers('-1001199809848')
+//getMembers('-1001199809848')
