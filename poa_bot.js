@@ -11,7 +11,7 @@ const logger = log4js
 const botId = process.env.BOT_ID
 const botToken = process.env.BOT_TOKEN
 const botName = process.env.BOT_NAME
-	
+	console.log(botToken)
 const bot = new Telegraf(botToken, {username : botName})
 bot.use(session())
 bot.startPolling()
