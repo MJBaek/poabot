@@ -5,7 +5,7 @@ const {log4js} = require('./setting/log4js')
 const DB = require('./setting/sqlite3-helper').DB
 const expressServer = require('./express_server')
 const cronJob = require('./cron')
-
+require('dotenv').config()
 const logger = log4js
 
 const botId = process.env.BOT_ID

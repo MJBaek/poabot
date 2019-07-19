@@ -1,5 +1,6 @@
 module.exports = function (args) {
 	const CronJob = require('cron').CronJob
+	require('dotenv').config()
 	const QRY = require ('./db/query')(args)
 	const dateUtil = require('./setting/date_util')()
 	
