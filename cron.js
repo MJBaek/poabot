@@ -36,19 +36,19 @@ module.exports = function (logger) {
 //		})
 //	})
 	
-	//Repeat every 1 second 
-	module.schedule1Sec = new CronJob('*/1 * * * * *', function() {
+	//Repeat every 10 second 
+	module.schedule10Sec = new CronJob('*/10 * * * * *', function() {
 		
 		try{
 			//checkBotParticipation()
-			console.log('1sec')
+			console.log('10sec')
 		}catch(err){
 			logger.error(err)
 		}
 	})
 	
-	//Repeat every 10 second 
-	module.schedule10Sec = new CronJob('*/10 * * * * *', function() {
+	//Repeat every 10 minute 
+	module.schedule10Min = new CronJob('* */10 * * * *', function() {
 		try{
 			/*
 			 let sql = `
@@ -62,7 +62,7 @@ module.exports = function (logger) {
 				list.push(row.id)
 			})
 			 */
-			console.log('10sec')
+			console.log('10min')
 		}catch(err){
 			logger.error(err)
 		}
