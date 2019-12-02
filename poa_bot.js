@@ -150,7 +150,7 @@ bot.on('message', (ctx) => {
 						 
 						 },
 						 "callback": {
-						 	"url": "https://cosmos.codes",
+						 	"url": "https://luna-bot.com",
 					  		"endpoint": "sign",
 					  		"custom_fields": {
 					  			"edit_chat_id" : ctx.chat.id,

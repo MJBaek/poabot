@@ -15,6 +15,7 @@ const bot = new Telegraf(botToken, {username : botName})
 
 const port1 = 8080
 const port2 = 443
+const port3 = 3000
 
 const serverStart = ((DB,logger,bot) =>{
 	const app = express()
@@ -23,10 +24,12 @@ const serverStart = ((DB,logger,bot) =>{
 	app.use(bodyParser.urlencoded({ extended: true }))
 	app.use(morgan('combined'))
 
-
-	https.createServer(options, app).listen(port2, function() {
-		logger.debug("Express server https listening on port " + port2)
+	https.createServer(options, app).listen(port3, function() {
+		logger.debug("Express server https listening on port " + port3)
 	})
+//	https.createServer(options, app).listen(port2, function() {
+//		logger.debug("Express server https listening on port " + port2)
+//	})
 
 //	http.createServer(app).listen(port1, function() {
 //		logger.debug("Express server http listening on port " + port1)
