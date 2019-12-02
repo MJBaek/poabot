@@ -41,7 +41,7 @@ module.exports = function (logger) {
 		
 		try{
 			//checkBotParticipation()
-			console.log('10sec')
+//			console.log('10sec')
 		}catch(err){
 			logger.error(err)
 		}
@@ -62,7 +62,7 @@ module.exports = function (logger) {
 				list.push(row.id)
 			})
 			 */
-			console.log('10min')
+//			console.log('10min')
 		}catch(err){
 			logger.error(err)
 		}
