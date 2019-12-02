@@ -12,7 +12,7 @@ module.exports = function (logger) {
 	let gaiacliDir = `${__dirname}/gaiacli_${osPlatform}_${osArch}`;
 	
 	module.accountCheck = ((addr) => {
-		let cmd = `${gaiacliDir} q account ${addr} --trust-node --node=lcd.owdin.network:26657 --output=json --indent`
+		let cmd = `${gaiacliDir} q account ${addr} --trust-node --node=cosmoswiki.com:26657 --output=json --indent`
 		let jsonRes = {}
 		return new Promise(function (resolve, reject) {
 			try{
@@ -45,7 +45,7 @@ module.exports = function (logger) {
 		})
 	})
 	module.stakingCheck = ((addr)=>{
-		let cmd = `${gaiacliDir} q staking delegations ${addr} --trust-node --node=lcd.owdin.network:26657 --output=json --indent`
+		let cmd = `${gaiacliDir} q staking delegations ${addr} --trust-node --node=cosmoswiki.com:26657 --output=json --indent`
 		let jsonRes = {}
 		return new Promise(function (resolve, reject) {
 			try{
