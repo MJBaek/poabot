@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "better-sqlite3-helper": "^2.0.2",
     "big-integer": "^1.6.43",
     "body-parser": "^1.18.3",
